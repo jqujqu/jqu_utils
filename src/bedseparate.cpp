@@ -97,7 +97,7 @@ main(int argc, const char **argv) {
       }
       while((*iterA).get_chrom() == intervalsB[i].get_chrom() &&
             (*iterA).get_end() < intervalsB[i].get_end()){
-        out << *iterA << '\n'; cerr << *iterA<< endl;
+        out << *iterA << '\n';
         ++iterA;
       }
       if (intervalsB[i].get_end() > (*iterA).get_start()){
