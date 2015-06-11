@@ -77,16 +77,16 @@ main(int argc, const char **argv) {
       throw SMITHLABException("regions not sorted in file: " + bedBfile);
 
     vector<GenomicRegion>::iterator iterA = intervalsA.begin();
-    for(size_t i = 0; i < intervalsB.size(); ++i){
+    for (size_t i = 0; i < intervalsB.size(); ++i) {
       string outfile = bedAfile + intervalsB[i].get_name(); 
       std::ofstream of;
       of.open(outfile.c_str(), std::ios::app);
       std::ostream out(of.rdbuf());
       
-      while ( (*iterA).get_chrom() < intervalsB[i].get_chrom() ||
-               (*iterA).get_end() < intervalsB[i].get_start() ) 
+      while ((*iterA).get_chrom() < intervalsB[i].get_chrom() ||
+             (*iterA).get_end() < intervalsB[i].get_start() ) 
         ++iterA;
-      if (*iterA < intervalsB[i] ){
+      if (*iterA < intervalsB[i]) {
         GenomicRegion interval(intervalsB[i].get_chrom(),
                                intervalsB[i].get_start(),
                                (*iterA).get_end());
@@ -95,12 +95,12 @@ main(int argc, const char **argv) {
         out << interval << '\n'; 
         ++iterA;
       }
-      while((*iterA).get_chrom() == intervalsB[i].get_chrom() &&
-            (*iterA).get_end() < intervalsB[i].get_end()){
+      while ((*iterA).get_chrom() == intervalsB[i].get_chrom() &&
+             (*iterA).get_end() < intervalsB[i].get_end()) {
         out << *iterA << '\n';
         ++iterA;
       }
-      if (intervalsB[i].get_end() > (*iterA).get_start()){
+      if (intervalsB[i].get_end() > (*iterA).get_start()) {
         GenomicRegion interval(intervalsB[i].get_chrom(),
                                (*iterA).get_start(),
                                intervalsB[i].get_end());
@@ -110,7 +110,6 @@ main(int argc, const char **argv) {
       }
       of.close();      
     }
-
   }
   catch (SMITHLABException &e) {
     cerr << "ERROR:\t" << e.what() << endl;
